@@ -6,7 +6,12 @@
       @include('backend.includes.header')
       @include('backend.includes.css')
 
-
+      <style>
+          .action_btn {
+              width: 200px;
+              margin: 0 auto;
+              display: inline;}
+      </style>
 
   </head>
 

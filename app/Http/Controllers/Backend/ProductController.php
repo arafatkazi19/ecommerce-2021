@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -147,6 +148,28 @@ class ProductController extends Controller
         //dd($product);
         $product->save();
 
+        if(!is_null($request->product_image)) {
+            foreach ($product->product_images as $pImage) {
+                if (File::exists('backend/img/products/' . $pImage->product_image)) {
+                    File::delete('backend/img/products/' . $pImage->product_image);
+                }
+            }
+
+
+                foreach ($request->product_image as $image) {
+                    $img = rand(1, 9999999) . '-' . $image->getClientOriginalName();
+                    $path = public_path('backend/img/products/' . $img);
+                    Image::make($image)->save($path);
+
+                    $prodImage = new ProductImage();
+                    $prodImage->product_id = $product->id;
+                    $prodImage->product_image = $img;
+                    $prodImage->save();
+                }
+
+
+        }
+
         return redirect()->route('product.manage');
     }
 
@@ -160,6 +183,13 @@ class ProductController extends Controller
     {
         //
         $product = Product::find($id);
+
+
+        foreach ($product->product_images as $pImage){
+            if (File::exists('backend/img/products/'.$pImage->product_image)){
+                File::delete('backend/img/products/'.$pImage->product_image);
+            }
+        }
 
         if (!is_null($product)){
             $product->delete();

@@ -1,3 +1,5 @@
+
+
 <?php
 
 use App\Http\Controllers\Backend\BrandController;
@@ -5,6 +7,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DistrictController;
 use App\Http\Controllers\Backend\DivisionController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Frontend\PagesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,9 +21,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::get('/',[PagesController::class, 'homepage'])->name('homepage');
+Route::get('/all-products',[PagesController::class, 'allProducts'])->name('all-products');
+Route::get('/product-details',[PagesController::class, 'productDetails'])->name('product-details');
+Route::get('/search-product',[PagesController::class, 'search'])->name('search-product');
+Route::get('/cart',[PagesController::class, 'cart'])->name('cart');
+Route::get('/checkout',[PagesController::class, 'checkout'])->name('checkout');
+Route::get('/customer-login',[PagesController::class, 'login'])->name('customer-login');
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -88,3 +102,5 @@ Route::group(['prefix'=>'admin'],function(){
     });
 
 });
+
+require __DIR__.'/auth.php';

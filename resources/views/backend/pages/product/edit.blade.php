@@ -57,7 +57,12 @@
 
 
                         <div class="form-group">
-                            <label for="status">Status</label>
+                            <label for="quantity">Quantity</label>
+                            <input value="{{ $product->quantity ? $product->quantity : '' }}" name="quantity" type="number" class="form-control" placeholder="Enter Quantity">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="status">Featured</label>
                             <select name="is_featured" class="form-control">
                                 <option value="0">Please choose status</option>
                                 <option {{$product->is_featured==1 ? 'selected' : ''}} value="1">Featured</option>
@@ -75,10 +80,7 @@
                             <textarea name="description" class="form-control" rows="3">{{ $product->description }}</textarea>
                         </div>
 
-                        <div class="form-group">
-                            <label for="quantity">Quantity</label>
-                            <input value="{{ $product->quantity ? $product->quantity : '' }}" name="quantity" type="number" class="form-control" placeholder="Enter Quantity">
-                        </div>
+
 
                         <div class="form-group">
                             <label for="status">Status</label>
@@ -93,12 +95,31 @@
                             <label for="tags">Product Tags [Separated with comma (,)]</label>
                             <input value="{{$product->tags}}" name="tags" type="text" class="form-control">
                         </div>
+                        @foreach($product->Product_images as $p)
+                            <img src ="{{asset('backend/img/products/'.$p->product_image)}}" width="50">
+                        @endforeach
+                        <div class="row">
 
-                        {{--                        <div class="form-group">--}}
-                        {{--                            <label for="image">Image</label>--}}
-                        {{--                            <input name="image" type="file" class="form-control-file">--}}
-                        {{--                        </div>--}}
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="image">Main Thumbnail Image*</label>
+                                    <input value="{{$p->product_image}}" name="product_image[]" type="file" class="form-control-file">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="image">Image 1</label>
+                                    <input name="product_image[]" type="file" class="form-control-file">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="image">Image 2</label>
+                                    <input name="product_image[]" type="file" class="form-control-file">
+                                </div>
+                            </div>
 
+                        </div>
                         <div class="form-group">
                             <input class="btn btn-success btn-block" type="submit" name="addProduct" value="Submit">
                         </div>

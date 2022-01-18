@@ -25,4 +25,4 @@
 <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
 <meta name="author" content="ThemePixels">
 
-<title>Bracket Plus Responsive Bootstrap 4 Admin Template</title>
+<title>Admin Dashboard</title>

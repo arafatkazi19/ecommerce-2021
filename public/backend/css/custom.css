@@ -1,0 +1,22 @@
+/* admin login page styling */
+.login-wrapper .mb-4{
+    background-color: #b30000;
+    color: #FFE;
+    padding: 6px 10px;
+}
+
+.login-wrapper .mb-4 ul{
+    padding: 0;
+    margin: 0;
+}
+
+.login-wrapper .mb-4 li{
+    text-align: center;
+}
+
+/* Forgate Password page styling */
+.password-wrapper .mb-4{
+    background-color: #bb9c9c;
+    color: rgb(31, 31, 29);
+    padding: 6px 10px;
+}

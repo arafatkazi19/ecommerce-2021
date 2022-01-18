@@ -47,7 +47,7 @@ Route::get('/customer-login',[PagesController::class, 'login'])->name('customer-
 |
 */
 
-Route::group(['prefix'=>'admin'],function(){
+Route::group(['prefix'=>'admin', 'middleware' => 'auth'],function(){
     //admin dashboard
 	Route::get('/dashboard','App\Http\Controllers\Backend\PagesController@dashboard')->name('admin.dashboard');
 

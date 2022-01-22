@@ -10,22 +10,24 @@
 						<div class="col">
 							<div class="featured-boxes">
 								<div class="row">
+									{{-- Login form starts --}}
 									<div class="col-md-6">
 										<div class="featured-box featured-box-primary text-left mt-2">
 											<div class="box-content">
 												<h4 class="color-primary font-weight-semibold text-4 text-uppercase mb-3">I'm a Returning Customer</h4>
-												<form action="/" id="frmSignIn" method="post">
+												<form action="{{ route('login.store') }}" id="frmSignIn" method="post">
+													@csrf
 													<div class="form-row">
 														<div class="form-group col">
-															<label class="font-weight-bold text-dark text-2">Username or E-mail Address</label>
-															<input type="text" value="" class="form-control form-control-lg">
+															<label class="font-weight-bold text-dark text-2">E-mail Address</label>
+															<input name="email" type="email" value="{{ old('email') }}" class="form-control form-control-lg" required>
 														</div>
 													</div>
 													<div class="form-row">
 														<div class="form-group col">
 															<a class="float-right" href="#">(Lost Password?)</a>
 															<label class="font-weight-bold text-dark text-2">Password</label>
-															<input type="password" value="" class="form-control form-control-lg">
+															<input type="password" name="password" class="form-control form-control-lg" required>
 														</div>
 													</div>
 													<div class="form-row">
@@ -43,25 +45,35 @@
 											</div>
 										</div>
 									</div>
+                                   {{-- Login form ends --}}
+
+                                   {{-- Registration form starts --}}
 									<div class="col-md-6">
 										<div class="featured-box featured-box-primary text-left mt-2">
 											<div class="box-content">
 												<h4 class="color-primary font-weight-semibold text-4 text-uppercase mb-3">Register An Account</h4>
-												<form action="/" id="frmSignUp" method="post">
+												<form action="{{ route('register.store') }}" id="frmSignUp" method="post">
+													@csrf
 													<div class="form-row">
-														<div class="form-group col">
+														
+														<div class="form-group col-lg-6">
+															<label class="font-weight-bold text-dark text-2">Fullname</label>
+															<input name="name" type="text" value="{{ old('name') }}" class="form-control form-control-lg" required>
+														</div>
+
+														<div class="form-group col-lg-6">
 															<label class="font-weight-bold text-dark text-2">E-mail Address</label>
-															<input type="text" value="" class="form-control form-control-lg">
+															<input name="email" type="text" value="{{ old('email') }}" class="form-control form-control-lg" required>
 														</div>
 													</div>
 													<div class="form-row">
 														<div class="form-group col-lg-6">
 															<label class="font-weight-bold text-dark text-2">Password</label>
-															<input type="password" value="" class="form-control form-control-lg">
+															<input type="password" name="password" class="form-control form-control-lg" required>
 														</div>
 														<div class="form-group col-lg-6">
 															<label class="font-weight-bold text-dark text-2">Re-enter Password</label>
-															<input type="password" value="" class="form-control form-control-lg">
+															<input name="password_confirmation" type="password" value="" class="form-control form-control-lg" required>
 														</div>
 													</div>
 													<div class="form-row">
@@ -79,6 +91,7 @@
 											</div>
 										</div>
 									</div>
+									{{-- Registration form ends --}}
 								</div>
 
 							</div>

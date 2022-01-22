@@ -32,13 +32,30 @@
                                     </li>
                                     <li class="nav-item dropdown nav-item-left-border d-none d-sm-block">
                                         <a class="nav-link" href="#" role="button" id="dropdownLanguage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="{{asset('frontend/img/blank.gif')}}" class="flag flag-us" alt="English" /> English
+                                            @if(Auth::check())
+
+                                            @if (!is_null(Auth::user()->image))
+                                            <img src="{{asset('backend/img/users/user.png')}}" class="user-avater" alt="English" /> 
+                                            @else
+                                            <img src="{{asset('backend/img/users/user.png')}}" class="user-avater" alt="English" /> 
+                                            @endif
+
+                                            {{ Auth::user()->name }}
                                             <i class="fas fa-angle-down"></i>
+                                            @else
+                                            <a href="{{ route('customer-login') }}">Login/Register</a>
+                                            @endif
+                                            
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownLanguage">
-                                            <a class="dropdown-item" href="#"><img src="{{asset('frontend/img/blank.gif')}}" class="flag flag-us" alt="English" /> English</a>
-                                            <a class="dropdown-item" href="#"><img src="{{asset('frontend/img/blank.gif')}}" class="flag flag-es" alt="English" /> Español</a>
-                                            <a class="dropdown-item" href="#"><img src="{{asset('frontend/img/blank.gif')}}" class="flag flag-fr" alt="English" /> Française</a>
+                                            <a class="dropdown-item" href="{{ route('customer-profile') }}">My Profile</a>
+                                            <a class="dropdown-item" href="#">Order History</a>
+                                            <form action="{{ route('logout') }}" method="post">
+                                                @csrf
+                                                <a onclick="event.preventDefault();
+                                                this.closest('form').submit();" class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+                                            </form>
+                                            
                                         </div>
                                     </li>
                                 </ul>
@@ -143,13 +160,15 @@
                                                     Contact
                                                 </a>
                                             </li>
-
+                                            
+                                            @if (!Auth::check())
+                                                
                                             <li>
                                                 <a class="dropdown-item dropdown-toggle" href="{{ route('customer-login') }}">
                                                     Login/Register
                                                 </a>
                                             </li>
-
+                                            @endif
                                         </ul>
                                     </nav>
                                 </div>

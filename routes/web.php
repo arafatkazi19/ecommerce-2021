@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\DistrictController;
 use App\Http\Controllers\Backend\DivisionController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Frontend\PagesController;
+use App\Http\Controllers\Frontend\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,11 @@ Route::get('/cart',[PagesController::class, 'cart'])->name('cart');
 Route::get('/checkout',[PagesController::class, 'checkout'])->name('checkout');
 Route::get('/customer-login',[PagesController::class, 'login'])->name('customer-login');
 
+Route::group(['prefix'=>'customer'],function(){
+    Route::get('/my-profile',[CustomerController::class, 'index'])->name('customer-profile')
+    ->middleware('auth','verified');
+});
+
 
 
 
@@ -47,7 +53,7 @@ Route::get('/customer-login',[PagesController::class, 'login'])->name('customer-
 |
 */
 
-Route::group(['prefix'=>'admin', 'middleware' => 'auth'],function(){
+Route::group(['prefix'=>'admin', 'middleware' => ['auth','verified']],function(){
     //admin dashboard
 	Route::get('/dashboard','App\Http\Controllers\Backend\PagesController@dashboard')->name('admin.dashboard');
 

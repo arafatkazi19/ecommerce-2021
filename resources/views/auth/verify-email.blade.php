@@ -1,13 +1,17 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('frontend.layout.template')
+@section('body-content')
+
+<div role="main" class="main shop py-4">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12">
+
+
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+           <p>Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.<strong>Until you verify email , you are not able to manage your profile</strong></p>
         </div>
 
         @if (session('status') == 'verification-link-sent')
@@ -21,19 +25,23 @@
                 @csrf
 
                 <div>
-                    <x-button>
+                    <button class="btn btn-dark btn-block" style="margin-bottom: 10px">
                         {{ __('Resend Verification Email') }}
-                    </x-button>
+                    </button>
                 </div>
             </form>
 
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
 
-                <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900">
+                <button type="submit" class="btn btn-info btn-block">
                     {{ __('Log Out') }}
                 </button>
             </form>
         </div>
-    </x-auth-card>
-</x-guest-layout>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection

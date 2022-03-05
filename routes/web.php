@@ -9,7 +9,10 @@ use App\Http\Controllers\Backend\DivisionController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Frontend\PagesController;
 use App\Http\Controllers\Frontend\CustomerController;
+use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\OrderManagementController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SslCommerzPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,18 +29,63 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
+
+//Homepage,All Product and Details page routes
 Route::get('/',[PagesController::class, 'homepage'])->name('homepage');
 Route::get('/all-products',[PagesController::class, 'allProducts'])->name('all-products');
-Route::get('/product-details',[PagesController::class, 'productDetails'])->name('product-details');
-Route::get('/search-product',[PagesController::class, 'search'])->name('search-product');
-Route::get('/cart',[PagesController::class, 'cart'])->name('cart');
+Route::get('{slug}/product-details',[PagesController::class, 'productDetails'])->name('product-details');
+
 Route::get('/checkout',[PagesController::class, 'checkout'])->name('checkout');
 Route::get('/customer-login',[PagesController::class, 'login'])->name('customer-login');
 
+
+//Showing Products according to Parent and Child Categories routes
+Route::get('/primary-category/{id}',[PagesController::class, 'primaryCategory'])->name('pcategory.show');
+Route::get('/category/{slug}',[PagesController::class, 'category'])->name('category.show');
+
+
+//search product
+Route::get('/search-product',[PagesController::class, 'search'])->name('search');
+
+//Add to cart Routes 
+Route::group(['prefix'=>'cart'],function(){
+    Route::get('/',[CartController::class, 'index'])->name('cart.items');
+    Route::post('/store',[CartController::class, 'store'])->name('cart.store');
+    Route::post('/update/{id}',[CartController::class, 'update'])->name('cart.update');
+    Route::post('/destroy/{id}',[CartController::class, 'destroy'])->name('cart.destroy');
+
+});
+
+
+// Customer Routes
 Route::group(['prefix'=>'customer'],function(){
     Route::get('/my-profile',[CustomerController::class, 'index'])->name('customer-profile')
     ->middleware('auth','verified');
+
+    Route::get('/profile-update/{id}',[CustomerController::class, 'create'])->name('profile.update')
+    ->middleware('auth');
+
+    Route::post('/profile-update-store/{id}',[CustomerController::class, 'store'])->name('profile.store')
+    ->middleware('auth');
+
+    // Order Managemetn Routes
+    Route::get('/order-history',[OrderManagementController::class, 'index'])->name('order-history');
 });
+
+
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+// Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+// Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
 
 
 
@@ -53,7 +101,7 @@ Route::group(['prefix'=>'customer'],function(){
 |
 */
 
-Route::group(['prefix'=>'admin', 'middleware' => ['auth','verified']],function(){
+Route::group(['prefix'=>'admin', 'middleware' => ['auth','verified','role']],function(){
     //admin dashboard
 	Route::get('/dashboard','App\Http\Controllers\Backend\PagesController@dashboard')->name('admin.dashboard');
 

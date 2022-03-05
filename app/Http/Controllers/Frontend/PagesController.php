@@ -3,7 +3,14 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\Cart;
+use App\Models\Order;
+use App\Models\Porduct;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
@@ -26,7 +33,8 @@ class PagesController extends Controller
     public function allProducts()
     {
         //
-        return view('frontend.pages.all-products');
+        $products = Product::orderBy('id','desc')->where('status',1)->get();
+        return view('frontend.pages.all-products',['products'=>$products]);
     }
 
             /**
@@ -34,10 +42,17 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function productDetails()
+    public function productDetails($slug)
     {
         //
-        return view('frontend.pages.details');
+        $productDetail = Product::where('slug',$slug)->first();
+
+        if(!is_null($productDetail)){
+            return view('frontend.pages.details',['productDetail'=>$productDetail]);
+        } else {
+            return redirect()->back();
+        }
+        
     }
 
                 /**
@@ -45,10 +60,64 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function search()
+    public function search(Request $request)
     {
         //
-        return view('frontend.pages.search');
+        $search = $request->search;
+      //  dd($search);
+        $prodSearchRes = Product::orWhere('title', 'like' , '%' . $search . '%')->
+                            orWhere('short_description',  'like' , '%'. $search .'%')->
+                            orWhere('tags', 'like' , '%'. $search .'%')
+                            ->orderBy('title','desc')->get();
+
+        return view('frontend.pages.search',[
+            'search' => $search,
+            'prodSearchRes' => $prodSearchRes
+        ]);
+    }
+
+           /**
+     * Display the primary category products.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function primaryCategory($id)
+    {
+        //
+        $primaryCategory = Category::find($id);
+
+
+        //dd($catProducts); 
+       // dd($primaryCategory);
+        if(!is_null($primaryCategory)){
+            return view('frontend.pages.primary-category',['primaryCategory'=>$primaryCategory]);
+        } else{
+            return redirect()->back();
+        }
+        // dd($categories);
+        
+    }
+
+
+       /**
+     * Display the child category products.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function category($slug)
+    {
+        //
+        $category = Category::with(['products' => function($query) { $query->where('status','=', 1); }])->where('slug', $slug)->first();
+        //dd($category);
+        if(!is_null($category)){
+            return view('frontend.pages.category',['category'=>$category]);
+        } else{
+            return redirect()->back();
+        }
+        // dd($categories);
+        
     }
 
     /**
@@ -70,7 +139,8 @@ class PagesController extends Controller
     public function checkout()
     {
         //
-        return view('frontend.pages.checkout');
+        $cartItems = Cart::orderBy('id','desc')->get();
+        return view('frontend.pages.checkout',['cartItems'=>$cartItems]);
     }
 
     /**

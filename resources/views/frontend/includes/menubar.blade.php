@@ -35,7 +35,7 @@
                                             @if(Auth::check())
 
                                             @if (!is_null(Auth::user()->image))
-                                            <img src="{{asset('backend/img/users/user.png')}}" class="user-avater" alt="English" /> 
+                                            <img src="{{asset('backend/img/users/'.Auth::user()->image)}}" class="user-avater" alt="English" /> 
                                             @else
                                             <img src="{{asset('backend/img/users/user.png')}}" class="user-avater" alt="English" /> 
                                             @endif
@@ -49,7 +49,7 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownLanguage">
                                             <a class="dropdown-item" href="{{ route('customer-profile') }}">My Profile</a>
-                                            <a class="dropdown-item" href="#">Order History</a>
+                                            <a class="dropdown-item" href="{{ route('order-history') }}">Order History</a>
                                             <form action="{{ route('logout') }}" method="post">
                                                 @csrf
                                                 <a onclick="event.preventDefault();
@@ -97,31 +97,58 @@
                                 <a href="#" class="header-nav-features-toggle">
                                     <img src="{{asset('frontend/img/icons/icon-cart-big.svg')}}" height="34" alt="" class="header-nav-top-icon-img">
                                     <span class="cart-info">
-													<span class="cart-qty">1</span>
+													<span class="cart-qty">{{ App\Models\Cart::totalItems() }}</span>
 												</span>
                                 </a>
                                 <div class="header-nav-features-dropdown" id="headerTopCartDropdown">
                                     <ol class="mini-products-list">
+
+                                        @foreach(App\Models\Cart::orderBy('id','desc')->get() as $item)
+                                        <li class="item">
+                                            @if($item->product->product_images->count() > 0)
+                                            <a href="{{ route('product-details',$item->product->slug) }}" title="Camera X1000" class="product-image"><img src="{{asset('backend/img/products/'.$item->product->product_images->first()->product_image)}}" alt="{{ $item->product->title }}">
+                                               
+                                            </a>
+                                            @endif
+                                            <div class="product-details">
+                                                <p class="product-name">
+                                                    <a href="{{ route('product-details',$item->product->slug) }}">{{ $item->product->title }} </a>
+                                                </p>
+                                                <p class="qty-price">
+                                                    {{ $item->quantity }}X <span class="price">৳ {{ !empty($item->product->offer_price) ? $item->product->offer_price : $item->product->regular_price }}</span>
+                                                </p>
+
+                                                <form action="{{ route('cart.destroy',$item->id) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" title="Remove This Item" class="btn-remove"><i class="fas fa-times"></i></button>
+                                                </form>
+                                                
+                                            </div>
+                                        </li>
+                                        @endforeach
+
+                                        {{-- @foreach(App\Models\Cart::orderBy('id','desc')->get() as $item)
                                         <li class="item">
                                             <a href="#" title="Camera X1000" class="product-image"><img src="{{asset('frontend/img/products/product-1.jpg')}}" alt="Camera X1000"></a>
                                             <div class="product-details">
                                                 <p class="product-name">
-                                                    <a href="#">Camera X1000 </a>
+                                                    <a href="#">{{ $item->product->title }} </a>
                                                 </p>
                                                 <p class="qty-price">
-                                                    1X <span class="price">$890</span>
+                                                    {{ $item->quantity }}X <span class="price">$ {{ !empty($item->product->offer_price) ? $item->product->offer_price : $item->product->regular_price }}</span>
                                                 </p>
                                                 <a href="#" title="Remove This Item" class="btn-remove"><i class="fas fa-times"></i></a>
                                             </div>
                                         </li>
+                                        @endforeach --}}
                                     </ol>
                                     <div class="totals">
                                         <span class="label">Total:</span>
-                                        <span class="price-total"><span class="price">$890</span></span>
+                                        <span class="price-total"><span class="price">৳ {{ App\Models\Cart::totalPrice() }}</span></span>
                                     </div>
                                     <div class="actions">
-                                        <a class="btn btn-dark" href="#">View Cart</a>
-                                        <a class="btn btn-primary" href="#">Checkout</a>
+                                        <a class="btn btn-dark" href="{{ route('cart.items') }}">View Cart</a>
+                                        <a class="btn btn-primary" href="{{ route('checkout') }}">Checkout</a>
                                     </div>
                                 </div>
                             </div>

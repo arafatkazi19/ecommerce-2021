@@ -688,6 +688,8 @@ li {
 	letter-spacing: 0.005em;
 	font-weight: 600;
 	color: #696969;
+	display: block;
+	line-height: 15px;
 }
 
 #header .header-nav-features .header-nav-features-cart .mini-products-list li .product-details .product-name {
@@ -714,6 +716,16 @@ li {
 	box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2);
 	line-height: 20px;
 	font-size: 10px;
+	line-height: 1px;
+	font-size: 10px;
+	border: 1px solid #ddd;
+}
+
+.item-remove{
+	border-radius: 100%;
+    border: 2px solid #ddd;
+    width: 30px;
+	height: 30px;
 }
 
 #header .header-nav-features .header-nav-features-cart .totals {
@@ -7377,4 +7389,14 @@ html.gap-outside .pin-wrapper .sticky-wrapper.sticky-effect-active .sticky-body 
 	border-radius: 50%;
 	margin-top: -2px;
 	margin-right: 3px;
+}
+
+/* Order content styling */
+
+.order-history .nav-link{
+	text-align: center;
+}
+
+.order-history .tab-content{
+	border: none;
 }

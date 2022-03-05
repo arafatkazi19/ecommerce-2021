@@ -10,201 +10,55 @@
                 <div class="col-lg-9">
                     <div class="masonry-loader masonry-loader-showing">
                         <div class="row products product-thumb-info-list" data-plugin-masonry data-plugin-options="{'layoutMode': 'fitRows'}">
-                            <div class="col-sm-6 col-lg-4 product">
-                                <a href="shop-product-sidebar-left.html">
+                            @foreach($products as $product)
+							<div class="col-sm-6 col-lg-4 product">
+								@if($product->is_featured == 1)
+                                <a href="#">
                                     <span class="onsale">Sale!</span>
                                 </a>
+								@endif
                                 <span class="product-thumb-info border-0">
-											<a href="shop-cart.html" class="add-to-cart-product bg-color-primary">
-												<span class="text-uppercase text-1">Add to Cart</span>
-											</a>
-											<a href="shop-product-sidebar-left.html">
+                                    <form action="{{ route('cart.store') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" value="{{ $product->id }}" name="product_id">
+                                        <input type="submit" value="Add To Cart" name="addcart" class="add-to-cart-product bg-color-primary">
+                                    </form>
+										
+											<a href="{{ route('product-details', $product->slug) }}">
 												<span class="product-thumb-info-image">
-													<img alt="" class="img-fluid" src="{{asset('frontend/img/products/product-grey-1.jpg')}}">
+
+													@foreach($product->product_images as $prodimages)
+														<img alt="{{ $product->title }}" width="220px" height="180px" src="{{ asset('backend/img/products/'.$prodimages->product_image) }}" >
+														@break
+													@endforeach
+
+
+													
 												</span>
 											</a>
 											<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">
 												<a href="shop-product-sidebar-left.html">
-													<h4 class="text-4 text-primary">Photo Camera</h4>
+													<h4 class="text-4 text-primary">{{ $product->title }}</h4>
 													<span class="price">
-														<del><span class="amount">$325</span></del>
-														<ins><span class="amount text-dark font-weight-semibold">$299</span></ins>
+														@if ($product->is_featured == 1)
+														<del><span class="amount">৳ {{ $product->regular_price }}</span></del>
+														<ins><span class="amount text-dark font-weight-semibold"></span>৳ {{ $product->offer_price }}</ins>
+
+														@else
+														<ins><span class="amount text-dark font-weight-semibold"></span>৳ {{ $product->regular_price }}</ins>
+
+														@endif
+														
 													</span>
 												</a>
 											</span>
 										</span>
                             </div>
-                            <div class="col-sm-6 col-lg-4 product">
-										<span class="product-thumb-info border-0">
-											<a href="shop-cart.html" class="add-to-cart-product bg-color-primary">
-												<span class="text-uppercase text-1">Add to Cart</span>
-											</a>
-											<a href="shop-product-sidebar-left.html">
-												<span class="product-thumb-info-image">
-													<img alt="" class="img-fluid" src="{{asset('frontend/img/products/product-grey-2.jpg')}}">
-												</span>
-											</a>
-											<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">
-												<a href="shop-product-sidebar-left.html">
-													<h4 class="text-4 text-primary">Golf Bag</h4>
-													<span class="price">
-														<span class="amount text-dark font-weight-semibold">$72</span>
-													</span>
-												</a>
-											</span>
-										</span>
-                            </div>
-                            <div class="col-sm-6 col-lg-4 product">
-										<span class="product-thumb-info border-0">
-											<a href="shop-cart.html" class="add-to-cart-product bg-color-primary">
-												<span class="text-uppercase text-1">Add to Cart</span>
-											</a>
-											<a href="shop-product-sidebar-left.html">
-												<span class="product-thumb-info-image">
-													<img alt="" class="img-fluid" src="{{asset('frontend/img/products/product-grey-3.jpg')}}">
-												</span>
-											</a>
-											<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">
-												<a href="shop-product-sidebar-left.html">
-													<h4 class="text-4 text-primary">Workout</h4>
-													<span class="price">
-														<span class="amount text-dark font-weight-semibold">$60</span>
-													</span>
-												</a>
-											</span>
-										</span>
-                            </div>
-                            <div class="col-sm-6 col-lg-4 product">
-										<span class="product-thumb-info border-0">
-											<a href="shop-cart.html" class="add-to-cart-product bg-color-primary">
-												<span class="text-uppercase text-1">Add to Cart</span>
-											</a>
-											<a href="shop-product-sidebar-left.html">
-												<span class="product-thumb-info-image">
-													<img alt="" class="img-fluid" src="{{asset('frontend/img/products/product-grey-4.jpg')}}">
-												</span>
-											</a>
-											<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">
-												<a href="shop-product-sidebar-left.html">
-													<h4 class="text-4 text-primary">Luxury bag</h4>
-													<span class="price">
-														<span class="amount text-dark font-weight-semibold">$199</span>
-													</span>
-												</a>
-											</span>
-										</span>
-                            </div>
-                            <div class="col-sm-6 col-lg-4 product">
-										<span class="product-thumb-info border-0">
-											<a href="shop-cart.html" class="add-to-cart-product bg-color-primary">
-												<span class="text-uppercase text-1">Add to Cart</span>
-											</a>
-											<a href="shop-product-sidebar-left.html">
-												<span class="product-thumb-info-image">
-													<img alt="" class="img-fluid" src="{{asset('frontend/img/products/product-grey-5.jpg')}}">
-												</span>
-											</a>
-											<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">
-												<a href="shop-product-sidebar-left.html">
-													<h4 class="text-4 text-primary">Ladies' handbag</h4>
-													<span class="price">
-														<span class="amount text-dark font-weight-semibold">$189</span>
-													</span>
-												</a>
-											</span>
-										</span>
-                            </div>
-                            <div class="col-sm-6 col-lg-4 product">
-                                <a href="shop-product-sidebar-left.html">
-                                    <span class="onsale">Sale!</span>
-                                </a>
-                                <span class="product-thumb-info border-0">
-											<a href="shop-cart.html" class="add-to-cart-product bg-color-primary">
-												<span class="text-uppercase text-1">Add to Cart</span>
-											</a>
-											<a href="shop-product-sidebar-left.html">
-												<span class="product-thumb-info-image">
-													<img alt="" class="img-fluid" src="{{asset('frontend/img/products/product-grey-6.jpg')}}">
-												</span>
-											</a>
-											<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">
-												<a href="shop-product-sidebar-left.html">
-													<h4 class="text-4 text-primary">Baseball Cap</h4>
-													<span class="price">
-														<del><span class="amount">$25</span></del>
-														<ins><span class="amount text-dark font-weight-semibold">$22</span></ins>
-													</span>
-												</a>
-											</span>
-										</span>
-                            </div>
-                            <div class="col-sm-6 col-lg-4 product">
-										<span class="product-thumb-info border-0">
-											<a href="shop-cart.html" class="add-to-cart-product bg-color-primary">
-												<span class="text-uppercase text-1">Add to Cart</span>
-											</a>
-											<a href="shop-product-sidebar-left.html">
-												<span class="product-thumb-info-image">
-													<img alt="" class="img-fluid" src="{{asset('frontend/img/products/product-grey-7.jpg')}}">
-												</span>
-											</a>
-											<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">
-												<a href="shop-product-sidebar-left.html">
-													<h4 class="text-4 text-primary">Blue Ladies Handbag</h4>
-													<span class="price">
-														<span class="amount text-dark font-weight-semibold">$290</span>
-													</span>
-												</a>
-											</span>
-										</span>
-                            </div>
-                            <div class="col-sm-6 col-lg-4 product">
-										<span class="product-thumb-info border-0">
-											<a href="shop-cart.html" class="add-to-cart-product bg-color-primary">
-												<span class="text-uppercase text-1">Add to Cart</span>
-											</a>
-											<a href="shop-product-sidebar-left.html">
-												<span class="product-thumb-info-image">
-													<img alt="" class="img-fluid" src="{{asset('frontend/img/products/product-grey-8.jpg')}}">
-												</span>
-											</a>
-											<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">
-												<a href="shop-product-sidebar-left.html">
-													<h4 class="text-4 text-primary">Military Rucksack</h4>
-													<span class="price">
-														<span class="amount text-dark font-weight-semibold">$49</span>
-													</span>
-												</a>
-											</span>
-										</span>
-                            </div>
-                            <div class="col-sm-6 col-lg-4 product">
-                                <a href="shop-product-sidebar-left.html">
-                                    <span class="onsale">Sale!</span>
-                                </a>
-                                <span class="product-thumb-info border-0">
-											<a href="shop-cart.html" class="add-to-cart-product bg-color-primary">
-												<span class="text-uppercase text-1">Add to Cart</span>
-											</a>
-											<a href="shop-product-sidebar-left.html">
-												<span class="product-thumb-info-image">
-													<img alt="" class="img-fluid" src="{{asset('frontend/img/products/product-grey-9.jpg')}}">
-												</span>
-											</a>
-											<span class="product-thumb-info-content product-thumb-info-content pl-0 bg-color-light">
-												<a href="shop-product-sidebar-left.html">
-													<h4 class="text-4 text-primary">Baseball</h4>
-													<span class="price">
-														<del><span class="amount">$15</span></del>
-														<ins><span class="amount text-dark font-weight-semibold">$12</span></ins>
-													</span>
-												</a>
-											</span>
-										</span>
-                            </div>
+							@endforeach
+                    
                         </div>
                         <div class="row">
-                            <div class="col">
+                            {{-- <div class="col">
                                 <ul class="pagination float-right">
                                     <li class="page-item"><a class="page-link" href="#"><i class="fas fa-angle-left"></i></a></li>
                                     <li class="page-item active"><a class="page-link" href="#">1</a></li>
@@ -212,7 +66,7 @@
                                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                                     <a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>
                                 </ul>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

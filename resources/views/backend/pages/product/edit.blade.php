@@ -76,10 +76,14 @@
                     <div class="col-lg-6">
 
                         <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea name="description" class="form-control" rows="3">{{ $product->description }}</textarea>
+                            <label for="short_description">Short Description</label>
+                            <textarea name="short_description" class="form-control" rows="3">{{ $product->short_description }}</textarea>
                         </div>
 
+                        <div class="form-group">
+                            <label for="long_description">Long Description</label>
+                            <textarea name="long_description" class="form-control" rows="4">{{ $product->long_description }}</textarea>
+                        </div>
 
 
                         <div class="form-group">

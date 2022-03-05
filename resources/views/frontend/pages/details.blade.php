@@ -17,15 +17,20 @@
 								<div class="col-lg-6">
 
 									<div class="owl-carousel owl-theme" data-plugin-options="{'items': 1, 'margin': 10}">
+										
+										@foreach($productDetail->product_images as $prodImage)
+										
 										<div>
-											<img alt="" height="300" class="img-fluid" src="{{ asset('frontend/img/products/product-grey-7.jpg') }}">
+											<img alt="{{ $productDetail->title }}" class="img-fluid" src="{{ asset('backend/img/products/'.$prodImage->product_image) }}">
 										</div>
-										<div>
+										
+										@endforeach
+										{{-- <div>
 											<img alt="" height="300" class="img-fluid" src="{{  asset('frontend/img/products/product-grey-7-2.jpg') }}">
 										</div>
 										<div>
 											<img alt="" height="300" class="img-fluid" src="{{asset('frontend/img/products/product-grey-7-3.jpg')}}">
-										</div>
+										</div> --}}
 									</div>
 
 								</div>
@@ -34,8 +39,9 @@
 
 									<div class="summary entry-summary">
 
-										<h1 class="mb-0 font-weight-bold text-7">Blue Ladies Handbag</h1>
+										<h1 class="mb-0 font-weight-bold text-7">{{ $productDetail->title }}</h1>
 
+										{{-- Produc Ratings --}}
 										<div class="pb-0 clearfix">
 											<div title="Rated 3 out of 5" class="float-left">
 												<input type="text" class="d-none" value="3" title="" data-plugin-star-rating data-plugin-options="{'displayOnly': true, 'color': 'primary', 'size':'xs'}">
@@ -47,11 +53,30 @@
 										</div>
 
 										<p class="price">
-											<span class="amount">$22</span>
+											<span class="amount">
+												@if ($productDetail->is_featured == 1)
+												<del><span class="amount">৳ {{ $productDetail->regular_price }}</span></del>
+												<span class="amount text-dark font-weight-semibold">৳ {{ $productDetail->offer_price }}</span>
+
+												@else
+												<span class="amount text-dark font-weight-semibold">৳ {{ $productDetail->regular_price }}</span>
+
+												@endif
+											</span>
 										</p>
 
-										<p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus nibh sed elimttis adipiscing. Fusce in hendrerit purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus nibh sed elimttis adipiscing. Fusce in hendrerit purus. </p>
+										<p class="mb-5"> {{ $productDetail->short_description }}</p>
 
+										<p>
+											
+											@if($productDetail->quantity <= 0)
+											   <h3 class="text text-danger font-weight-bold">OUT OF STOCK</h3>
+											@else
+												<h4>Quantity : <strong class="text text-success">{{ $productDetail->quantity }}</strong></h4>
+											@endif
+										</p>
+		
+										
 										<form enctype="multipart/form-data" method="post" class="cart">
 											<div class="quantity quantity-lg">
 												<input type="button" class="minus" value="-">
@@ -62,7 +87,7 @@
 										</form>
 
 										<div class="product-meta">
-											<span class="posted-in">Categories: <a rel="tag" href="#">Accessories</a>, <a rel="tag" href="#">Bags</a>.</span>
+											<span class="posted-in">Categories: <a rel="tag" href="#">{{ $productDetail->category->title }}</a>.</span>
 										</div>
 
 									</div>
@@ -81,9 +106,7 @@
 										</ul>
 										<div class="tab-content p-0">
 											<div class="tab-pane p-4 active" id="productDescription">
-												<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sagittis, massa fringilla consequat blandit, mauris ligula porta nisi, non tristique enim sapien vel nisl. Suspendisse vestibulum lobortis dapibus. </p>
-												<p class="m-0">Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sagittis, massa fringilla consequat blandit, mauris ligula porta nisi, non tristique enim sapien vel nisl. Suspendisse vestibulum lobortis dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
-											</div>
+												<p> {{ $productDetail->long_description }}</p>											</div>
 											<div class="tab-pane p-4" id="productInfo">
 												<table class="table m-0">
 													<tbody>

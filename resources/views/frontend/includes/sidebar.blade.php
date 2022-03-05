@@ -1,31 +1,33 @@
 {{-- Left Sidebar --}}
 <div class="col-lg-3">
     <aside class="sidebar">
-        <form action="page-search-results.html" method="get">
+
+        {{-- search form --}}
+        <form action="{{ route('search') }}" method="get">
             <div class="input-group mb-3 pb-1">
-                <input class="form-control text-1" placeholder="Search..." name="s" id="s" type="text">
+                <input class="form-control text-1" placeholder="Search..." name="search" id="search" type="text">
                 <span class="input-group-append">
-											<button type="submit" class="btn btn-dark text-1 p-2"><i class="fas fa-search m-2"></i></button>
-										</span>
+				<button type="submit" class="btn btn-dark text-1 p-2"><i class="fas fa-search m-2"></i></button>
+				</span>
             </div>
         </form>
+
         <h5 class="font-weight-bold pt-3">Categories</h5>
         <ul class="nav nav-list flex-column">
-            <li class="nav-item"><a class="nav-link" href="#">Arts & Crafts</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Automotive</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Baby</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Books</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Eletronics</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Women's Fashion</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Men's Fashion</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Health & Household</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Home & Kitchen</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Military Accessories</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Movies & Television</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Sports & Outdoors</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Tools & Home Improvement</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Toys & Games</a></li>
+        @foreach(App\Models\Category::orderBy('title','asc')->where('is_parent',0)->get() as $pcat)
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('pcategory.show',$pcat->id) }}">{{ $pcat->title }}</a>
+                <ul>
+                    @foreach(App\Models\Category::orderBy('title','asc')->where('is_parent',$pcat->id)->get() as $ccat)
+                    <li>
+                        <a class="nav-link" href="{{ route('category.show',$ccat->slug) }}">{{ $ccat->title  }}</a>
+                    </li>
+                    @endforeach
+                </ul>
+            </li>
+       @endforeach
         </ul>
+
         <h5 class="font-weight-bold pt-5">Tags</h5>
         <div class="mb-3 pb-1">
             <a href="#"><span class="badge badge-dark badge-sm badge-pill text-uppercase px-2 py-1 mr-1">Nike</span></a>

@@ -22,7 +22,12 @@ class PagesController extends Controller
     public function homepage()
     {
         //
-        return view('frontend.pages.homepage');
+        $latestProducts = Product::orderBy('id','asc')->take(6)->where('status',1)->get();
+        $featuredProducts = Product::orderBy('id','desc')->where('status',1)->where('is_featured',1)->get();
+        return view('frontend.pages.homepage',[
+            'latestProducts'=>$latestProducts,
+            'featuredProducts'=>$featuredProducts
+        ]);
     }
 
         /**

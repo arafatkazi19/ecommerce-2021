@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
 
 class SslCommerzPaymentController extends Controller
 {
 
-    public function exampleEasyCheckout()
-    {
-        return view('frontend.pages.exampleEasycheckout');
-    }
+    // public function exampleEasyCheckout()
+    // {
+    //     return view('exampleEasycheckout');
+    // }
 
     public function exampleHostedCheckout()
     {
-        return view('exampleHosted');
+        return view('frontend.pages.exampleHosted');
     }
 
     public function index(Request $request)

@@ -29,8 +29,8 @@
 									</div>
 									<div id="collapseTwo" class="collapse show">
 										<div class="card-body">
-											<form action="/" id="frmShippingAddress" method="post">
-					@csrf
+											<form action="{{ route('make-payment') }}" id="frmShippingAddress" method="post">
+					                         @csrf
 										
 												<div class="form-row">
 													<div class="form-group col-lg-6">

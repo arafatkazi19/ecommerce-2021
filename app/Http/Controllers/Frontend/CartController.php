@@ -54,6 +54,11 @@ class CartController extends Controller
 
         if (!is_null($cart)) {
             $cart->increment('quantity');
+            $notification = array(
+                'message' => 'Cart updated successfully!',
+                'alert-type' => 'info'
+            );
+            return redirect()->back()->with($notification);
         } else {
             $cart = new Cart();
             if (Auth::check()) {
@@ -63,7 +68,14 @@ class CartController extends Controller
             $cart->ip_address = request()->ip();
             $cart->product_id = $request->product_id;
             $cart->save();
-            return redirect()->back();
+
+            
+        $notification = array(
+            'message' => 'Item added successfully!',
+            'alert-type' => 'success'
+        );
+
+            return redirect()->back()->with($notification);
         }
         
     }
@@ -105,7 +117,11 @@ class CartController extends Controller
 
         $cartUpdate->quantity = $request->quantity;
         $cartUpdate->save();
-        return redirect()->back();
+        $notification = array(
+            'message' => 'Cart updated successfully!',
+            'alert-type' => 'info'
+        );
+        return redirect()->back()->with($notification);
     }
 
 
@@ -126,7 +142,11 @@ class CartController extends Controller
         } else {
             return redirect()->back();
         }
-        return redirect()->back();
+        $notification = array(
+            'message' => 'Item deleted successfully!',
+            'alert-type' => 'error'
+        );
+        return redirect()->back()->with($notification);
 
 
     }

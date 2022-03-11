@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="{{asset('frontend/vendor/bootstrap-star-rating/css/star-rating.min.css')}}">
 <link rel="stylesheet" href="{{asset('frontend/vendor/bootstrap-star-rating/themes/krajee-fas/theme.min.css')}}">
 
+{{-- toastr css cdn --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- Theme CSS -->
 <link rel="stylesheet" href="{{asset('frontend/css/theme.css')}}">
 <link rel="stylesheet" href="{{asset('frontend/css/theme-elements.css')}}">

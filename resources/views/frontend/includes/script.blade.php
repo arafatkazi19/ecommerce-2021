@@ -18,6 +18,56 @@
 <script src="{{asset('frontend/vendor/bootstrap-star-rating/js/star-rating.min.js')}}"></script>
 <script src="{{asset('frontend/vendor/bootstrap-star-rating/themes/krajee-fas/theme.min.js')}}"></script>
 
+{{-- toastr js cdn --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+@if(Session::has('message'))
+<script type="text/javascript">
+   
+    
+    var type = "{{ Session::get('alert-type','info') }}";
+
+        switch(type){
+        case 'info':
+        toastr.info("{{ Session::get('message') }}");
+        break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}")
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+
+        case 'warning':
+        toastr.warning("{{ Session::get('message') }}");
+        break;
+    }
+</script>
+@endif
+
+
+<script>
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": true,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+</script>
+
 <!-- Theme Base, Components and Settings -->
 <script src="{{asset('frontend/js/theme.js')}}"></script>
 
@@ -43,6 +93,22 @@
     ga('send', 'pageview');
 </script>
  -->
+
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/622b7103a34c2456412a9d3e/1ftsr2ufc';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+<!--End of Tawk.to Script-->
+
 {{-- SSL POPUP SCRIPT --}}
  <script>
     (function (window, document) {

@@ -67,22 +67,36 @@
 														<label class="font-weight-bold text-dark text-2">District</label>
 														<select class="form-control" name="district_id">
 															<option value="">Please select your District</option>
+															@foreach($districts as $district)
+															<option value="{{ $district->id }}">{{ $district->district_name }}</option>
+															@endforeach
 														</select>
 													</div>
+
 													<div class="form-group col-lg-6">
 														<label class="font-weight-bold text-dark text-2">Division</label>
 														<select class="form-control" name="division_id">
-															<option value="">Please select your Division</option>
+															<option value="">Please select your District</option>
+															@foreach($divisions as $division)
+															<option value="{{ $division->id }}">{{ $division->name }}</option>
+															@endforeach
 														</select>
 													</div>
 												</div>
 
 												<div class="form-row">
 													<div class="form-group col">
+														<label class="font-weight-bold text-dark text-2">Post Code</label>
+														<input type="text" value="" name="post_code" class="form-control">
+													</div>
+
+													<div class="form-group col">
 														<label class="font-weight-bold text-dark text-2">Country</label>
 														<input type="text" value="Bangladesh" name="country" class="form-control">
 													</div>
 												</div>
+
+											
 
 												<div class="form-row">
 													<div class="form-group col">
@@ -91,12 +105,12 @@
 													</div>
 												</div>
 
-												<div class="form-row">
+												{{-- <div class="form-row">
 													<div class="form-group col">
 														<input type="submit" value="Continue" class="btn btn-xl btn-light pr-4 pl-4 text-2 font-weight-semibold text-uppercase float-right mb-2" data-loading-text="Loading...">
 													</div>
-												</div>
-											</form>
+												</div> --}}
+											
 										</div>
 									</div>
 								</div>
@@ -220,7 +234,7 @@
 
 											<h4 class="text-primary">Payment</h4>
 
-											<form action="/" id="frmPayment" method="post">
+											{{-- <form action="/" id="frmPayment" method="post">
 												<div class="form-row">
 													<div class="form-group col">
 														<div class="custom-control custom-checkbox">
@@ -245,16 +259,17 @@
 														</div>
 													</div>
 												</div>
-											</form>
+											</form> --}}
 										</div>
 									</div>
 								</div>
 							</div>
 
 							<div class="actions-continue">
-								<input id="sslczPayBtn" type="submit" value="Place Order" name="proceed" class="btn btn-primary btn-modern text-uppercase mt-5 mb-5 mb-lg-0">
+								<input type="hidden" name="amount" value="{{ App\Models\Cart::totalPrice() }}">
+								<input type="submit" value="Place Order" name="proceed" class="btn btn-primary btn-modern text-uppercase mt-5 mb-5 mb-lg-0">
 							</div>
-
+						</form>
 						</div>
 						<div class="col-lg-3">
 							<h4 class="text-primary">Cart Totals</h4>
@@ -286,6 +301,8 @@
 									</tr>
 								</tbody>
 							</table>
+
+							
 						</div>
 					</div>
 

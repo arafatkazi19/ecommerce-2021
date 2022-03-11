@@ -7,6 +7,8 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\District;
+use App\Models\Division;
 use App\Models\Order;
 use App\Models\Porduct;
 use App\Models\User;
@@ -145,7 +147,13 @@ class PagesController extends Controller
     {
         //
         $cartItems = Cart::orderBy('id','desc')->get();
-        return view('frontend.pages.checkout',['cartItems'=>$cartItems]);
+        $districts = District::orderBy('district_name','asc')->where('status',1)->get();
+        $divisions = Division::orderBy('name','asc')->where('status',1)->get();
+        return view('frontend.pages.checkout',[
+            'cartItems'=>$cartItems,
+            'districts'=>$districts,
+            'divisions'=>$divisions
+        ]);
     }
 
     /**

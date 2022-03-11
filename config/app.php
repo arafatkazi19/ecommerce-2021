@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Intervention\Image\ImageServiceProvider::class,
+        Yoeunes\Toastr\ToastrServiceProvider::class,
         /*
          * Application Service Providers...
          */

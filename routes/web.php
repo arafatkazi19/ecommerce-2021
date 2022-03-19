@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\DistrictController;
 use App\Http\Controllers\Backend\DivisionController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Frontend\PagesController;
 use App\Http\Controllers\Frontend\CustomerController;
@@ -153,6 +154,15 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth','verified','role']],fun
         Route::get('/edit/{id}',[DistrictController::class, 'edit'])->name('district.edit');
         Route::post('/update/{id}',[DistrictController::class, 'update'])->name('district.update');
         Route::post('/destroy/{id}',[DistrictController::class, 'destroy'])->name('district.destroy');
+    });
+
+     //Order manage in Admin Routes
+     Route::group(['prefix'=>'order'],function(){
+        Route::get('/manage',[OrderController::class, 'index'])->name('order.manage');
+        Route::get('/order-details/{id}',[OrderController::class, 'show'])->name('order.details');
+        Route::get('/edit/{id}',[OrderController::class, 'edit'])->name('order.edit');
+        Route::post('/update/{id}',[OrderController::class, 'update'])->name('order.update');
+        Route::post('/destroy/{id}',[OrderController::class, 'destroy'])->name('order.destroy');
     });
 
 });

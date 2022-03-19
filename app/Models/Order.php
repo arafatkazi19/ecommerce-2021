@@ -17,4 +17,19 @@ class Order extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function division()
+    {
+        return $this->belongsTo(Division::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

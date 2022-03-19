@@ -20,3 +20,36 @@
     color: rgb(31, 31, 29);
     padding: 6px 10px;
 }
+
+/* Order Details Page */
+.order-summery{
+	border: 2px solid #eee;
+    padding: 15px;
+    min-height: 185px;
+
+}
+
+.order-summery p{
+    margin: 0;
+    line-height: 1.8em;
+}
+
+.order-summery p span{
+    display: inline-block;
+    width: 100px;
+    color: #000;
+}
+
+.order-summery .badge{
+    border-radius: 1px;
+    padding: 3px 2px 2px;
+    color: #eee;
+}
+
+/* Order Items box */
+.order-items-box{
+    border: 2px solid #eee;
+    padding: 15px;
+    margin-top: 30px;
+    box-shadow: 1px 3px #000;
+}

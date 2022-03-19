@@ -21,7 +21,7 @@ class CartController extends Controller
     public function index()
     {
         //
-        $cartItems = Cart::orderBy('id','desc')->get();
+        $cartItems = Cart::orderBy('id','desc')->where('order_id',null)->get();
         return view('frontend.pages.cart',['cartItems'=>$cartItems]);
     }
 
@@ -45,9 +45,9 @@ class CartController extends Controller
     {
         //
         if(Auth::check()){
-            $cart = Cart::where('user_id',Auth::id())->where('product_id',$request->product_id)->first();
+            $cart = Cart::where('user_id',Auth::id())->where('order_id',null)->where('product_id',$request->product_id)->first();
         } else{
-            $cart = Cart::where('ip_address',request()->ip())->where('product_id',$request->product_id)->first();
+            $cart = Cart::where('ip_address',request()->ip())->where('order_id',null)->where('product_id',$request->product_id)->first();
 
         }
 
@@ -67,6 +67,8 @@ class CartController extends Controller
 
             $cart->ip_address = request()->ip();
             $cart->product_id = $request->product_id;
+            $cart->quantity   = $request->quantity;
+            //$cart->unit_price   = $request->unit_price;
             $cart->save();
 
             

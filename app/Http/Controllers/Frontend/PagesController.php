@@ -135,7 +135,8 @@ class PagesController extends Controller
     public function cart()
     {
         //
-        return view('frontend.pages.cart');
+        // $cartItems = Cart::orderBy('id','desc')->where('order_id',null)->get();
+        // return view('frontend.pages.cart');
     }
 
     /**
@@ -146,7 +147,7 @@ class PagesController extends Controller
     public function checkout()
     {
         //
-        $cartItems = Cart::orderBy('id','desc')->get();
+        $cartItems = Cart::orderBy('id','desc')->where('order_id',null)->get();
         $districts = District::orderBy('district_name','asc')->where('status',1)->get();
         $divisions = Division::orderBy('name','asc')->where('status',1)->get();
         return view('frontend.pages.checkout',[

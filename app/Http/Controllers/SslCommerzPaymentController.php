@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 
 class SslCommerzPaymentController extends Controller
@@ -191,9 +192,16 @@ class SslCommerzPaymentController extends Controller
         #Check order status in order tabel against the transaction id or order id.
         $order_detials = DB::table('orders')
             ->where('transaction_id', $tran_id)
-            ->select('transaction_id', 'status', 'currency', 'amount')->first();
+            ->select('id','transaction_id', 'status', 'currency', 'amount')->first();
 
-        if ($order_detials->status == 'Pending') {
+           // dd($order_detials->id);
+           foreach (Cart::totalCart() as $cart) {
+              $cart->order_id = $order_detials->id;
+              $cart->save();
+           }
+
+        if ($order_detials->status == 0) {
+            //changed from 'pending' to 0
             $validation = $sslc->orderValidate($request->all(), $tran_id, $amount, $currency);
 
             if ($validation == TRUE) {
@@ -217,8 +225,9 @@ class SslCommerzPaymentController extends Controller
                     ->update(['status' => 'Failed']);
                 echo "validation Fail";
             }
-        } else if ($order_detials->status == 0 || $order_detials->status == 'Complete') {
+        } else if ($order_detials->status == 0 || $order_detials->status == 2) {
             /*
+            Changed from 'processing' to 0 and 'cancelled' to 2
              That means through IPN Order status already updated. Now you can just show the customer that transaction is completed. No need to udate database.
              */
             echo "Transaction is successfully Completed";

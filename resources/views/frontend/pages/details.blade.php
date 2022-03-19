@@ -77,13 +77,16 @@
 										</p>
 		
 										
-										<form enctype="multipart/form-data" method="post" class="cart">
+										<form action="{{ route('cart.store') }}" enctype="multipart/form-data" method="post" class="cart">
+											@csrf
 											<div class="quantity quantity-lg">
 												<input type="button" class="minus" value="-">
 												<input type="text" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
 												<input type="button" class="plus" value="+">
+												
 											</div>
-											<button href="#" class="btn btn-primary btn-modern text-uppercase">Add to cart</button>
+											<input type="hidden" value="{{ $productDetail->id }}" name="product_id">
+											<input class="btn btn-primary btn-modern text-uppercase" value="Add to cart" type="submit">
 										</form>
 
 										<div class="product-meta">

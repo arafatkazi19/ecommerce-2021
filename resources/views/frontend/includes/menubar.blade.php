@@ -103,7 +103,7 @@
                                 <div class="header-nav-features-dropdown" id="headerTopCartDropdown">
                                     <ol class="mini-products-list">
 
-                                        @foreach(App\Models\Cart::orderBy('id','desc')->get() as $item)
+                                        @foreach(App\Models\Cart::orderBy('id','desc')->where('order_id',null)->get() as $item)
                                         <li class="item">
                                             @if($item->product->product_images->count() > 0)
                                             <a href="{{ route('product-details',$item->product->slug) }}" title="Camera X1000" class="product-image"><img src="{{asset('backend/img/products/'.$item->product->product_images->first()->product_image)}}" alt="{{ $item->product->title }}">

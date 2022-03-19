@@ -60,7 +60,13 @@ class CategoryController extends Controller
         }
 
         $category->save();
-        return redirect()->route('category.manage');
+
+        
+        $notification = array(
+            'message' => 'Category created successfully!',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('category.manage')->with($notification);
     }
 
     /**
@@ -123,7 +129,12 @@ class CategoryController extends Controller
         }
 
         $category->save();
-        return redirect()->route('category.manage');
+        
+        $notification = array(
+            'message' => 'Category updated successfully!',
+            'alert-type' => 'info'
+        );
+        return redirect()->route('category.manage')->with($notification);
     }
 
     /**
@@ -142,9 +153,14 @@ class CategoryController extends Controller
                 File::delete('backend/img/categories/' . $category->image);
             }
             $category->delete();
+          
         }
 
-
-        return redirect()->route('category.manage');
+      
+        $notification = array(
+            'message' => 'Category deleted successfully!',
+            'alert-type' => 'error'
+        );
+        return redirect()->route('category.manage')->with($notification);
     }
 }

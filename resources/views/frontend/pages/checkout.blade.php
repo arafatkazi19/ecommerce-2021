@@ -46,11 +46,11 @@
 												<div class="form-row">
 													<div class="form-group col-lg-6">
 														<label class="font-weight-bold text-dark text-2">email</label>
-														<input type="text" value="" name="email" class="form-control">
+														<input type="text" value="{{ Auth::check() ? Auth::user()->email : '' }}" name="email" class="form-control">
 													</div>
 													<div class="form-group col-lg-6">
 														<label class="font-weight-bold text-dark text-2">Phone</label>
-														<input type="text" value="" name="phone" class="form-control">
+														<input type="text" value="{{ Auth::check() || !empty(Auth::user()->phone) ? Auth::user()->phone : '' }}" name="phone" class="form-control">
 													</div>
 												</div>
 
@@ -58,7 +58,7 @@
 												<div class="form-row">
 													<div class="form-group col">
 														<label class="font-weight-bold text-dark text-2">Shipping Address [Flat#, house# etc]</label>
-														<input type="text" value="" name="address" class="form-control">
+														<input type="text" value="{{ Auth::check() || !empty(Auth::user()->address) ? Auth::user()->address : '' }}" name="address" class="form-control">
 													</div>
 												</div>
 
@@ -87,7 +87,7 @@
 												<div class="form-row">
 													<div class="form-group col">
 														<label class="font-weight-bold text-dark text-2">Post Code</label>
-														<input type="text" value="" name="post_code" class="form-control">
+														<input type="text" value="{{ Auth::check() || !empty(Auth::user()->zipcode) ? Auth::user()->zipcode : '' }}" name="post_code" class="form-control">
 													</div>
 
 													<div class="form-group col">

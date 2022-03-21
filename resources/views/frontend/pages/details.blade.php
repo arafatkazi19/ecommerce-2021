@@ -85,6 +85,13 @@
 												<input type="button" class="plus" value="+">
 												
 											</div>
+
+											@if ($productDetail->is_featured == 1)
+											<input type="hidden" value="{{ $productDetail->offer_price }}" name="unit_price">
+											@else
+											<input type="hidden" value="{{ $productDetail->regular_price }}" name="unit_price">
+											@endif
+
 											<input type="hidden" value="{{ $productDetail->id }}" name="product_id">
 											<input class="btn btn-primary btn-modern text-uppercase" value="Add to cart" type="submit">
 										</form>

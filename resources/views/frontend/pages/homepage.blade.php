@@ -23,7 +23,12 @@
                                     <form action="{{ route('cart.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" value="{{ $product->id }}" name="product_id">
-										<input type="hidden" value="1" value="{{ $product->id }}" name="quantity">
+										<input type="hidden" value="1" name="quantity">
+										@if ($product->is_featured == 1)
+											<input type="hidden" value="{{ $product->offer_price }}" name="unit_price">
+										@else
+											<input type="hidden" value="{{ $product->regular_price }}" name="unit_price">
+										@endif
                                         <input type="submit" value="Add To Cart" name="addcart" class="add-to-cart-product bg-color-primary">
                                     </form>
 										
@@ -76,7 +81,12 @@
                                     <form action="{{ route('cart.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" value="{{ $product->id }}" name="product_id">
-										<input type="hidden" value="1" value="{{ $product->id }}" name="quantity">
+										<input type="hidden" value="1" name="quantity">
+										@if ($product->is_featured == 1)
+											<input type="hidden" value="{{ $product->offer_price }}" name="unit_price">
+										@else
+											<input type="hidden" value="{{ $product->regular_price }}" name="unit_price">
+										@endif
                                         <input type="submit" value="Add To Cart" name="addcart" class="add-to-cart-product bg-color-primary">
                                     </form>
 										

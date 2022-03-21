@@ -14,6 +14,13 @@
     <p class="br-section-text">Using the most basic table markup.</p>
 
     <div class="bd bd-gray-300 rounded table-responsive">
+
+        @if($orders->count() == 0)
+        <div class="col-lg-12">
+            <span class="alert alert-info">Sorry!!!! No Orders found</span>
+        </div>
+            
+        @else
         <table class="table table-bordered table-striped mg-b-0">
             <thead class="thead-colored thead-dark">
             <tr>
@@ -78,6 +85,9 @@
             @endforeach
             </tbody>
         </table>
+        @endif
+
+      
     </div>
 </div><!-- bd -->
     @endsection

@@ -27,6 +27,12 @@
                 <h4 class="br-section-label">Transaction Details</h4>
                 <p><span>Order Amount :</span> {{ $orderDetails->amount }} {{ $orderDetails->currency }}</p>
                 <p><span>Transaction ID :</span> {{ $orderDetails->transaction_id }}</p>
+
+                <h4 class="change-order-status-title">Order Status <a href="{{ route('order.edit', $orderDetails->id) }}"><i class="fa fa-edit">
+                   </i> Update Status
+                </a></h4>
+
+
                 <p><span>Order Status :</span>
                     @if ($orderDetails->status == 0)
                         <span class="badge badge-info">In Processing</span>
@@ -65,6 +71,7 @@
                         <th scope="col">Image</th>
                         <th scope="col">Product Title</th>
                         <th scope="col">Quantity</th>
+                        <th scope="col">Unit Price</th>
                         <th scope="col">Price</th>
                       </tr>
                     </thead>
@@ -84,11 +91,22 @@
                             <td>{{ $item->product->title }}</td>
                             <td>{{ $item->quantity }}</td>
                             <td>{{ !empty($item->product->offer_price) ? '৳ '.number_format($item->product->offer_price, 2) : '৳ '.number_format($item->product->regular_price, 2)}}</td>
+                            <td>{{ !empty($item->product->offer_price) ? '৳ '.number_format($item->product->offer_price * $item->quantity, 2) : '৳ '.number_format($item->product->regular_price * $item->quantity, 2)}}</td>
+
                           </tr>
                         @endforeach
                       
                     </tbody>
                   </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-info text-center">
+                <h5>Customer Message</h5>
+                {{ !empty($orderDetails->message) ? $orderDetails->message : 'No Message given' }}
             </div>
         </div>
     </div>

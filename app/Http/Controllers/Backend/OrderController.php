@@ -80,6 +80,8 @@ class OrderController extends Controller
     public function edit($id)
     {
         //
+        $orderUpdate = Order::find($id);
+        return view('backend.pages.order.order-update',['orderUpdate'=>$orderUpdate]);
     }
 
     /**
@@ -92,6 +94,7 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         //
+      
     }
 
     /**

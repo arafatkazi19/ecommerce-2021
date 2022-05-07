@@ -74,3 +74,8 @@
     font-weight: 20px;
     color: #000;
 }
+
+.message-box .alert{
+    min-height: 100px;
+    margin-top: 50px;
+}

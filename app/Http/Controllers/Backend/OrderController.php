@@ -81,7 +81,13 @@ class OrderController extends Controller
     {
         //
         $orderUpdate = Order::find($id);
-        return view('backend.pages.order.order-update',['orderUpdate'=>$orderUpdate]);
+        $divisions = Division::orderBy('priority','asc')->get();
+        $districts = District::orderBy('district_name','asc')->get();
+        return view('backend.pages.order.order-update',[
+            'orderUpdate'=>$orderUpdate,
+            'divisions'=>$divisions,
+            'districts'=>$districts 
+        ]);
     }
 
     /**
@@ -94,7 +100,23 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         //
-      
+        $orderDetailsUpdate = Order::find($id);
+
+        $orderDetailsUpdate->cus_name = $request->first_name;
+        $orderDetailsUpdate->last_name = $request->last_name;
+        $orderDetailsUpdate->phone = $request->phone;
+        $orderDetailsUpdate->address = $request->address;
+        $orderDetailsUpdate->district_id = $request->district_id;
+        $orderDetailsUpdate->division_id = $request->division_id;
+        $orderDetailsUpdate->post_code = $request->post_code;
+        $orderDetailsUpdate->admin_note = $request->admin_note;
+        $orderDetailsUpdate->status = $request->status;
+
+       // dd($orderDetailsUpdate);
+       $orderDetailsUpdate->save();
+
+       return redirect()->route('order.details',$orderDetailsUpdate->id);
+
     }
 
     /**

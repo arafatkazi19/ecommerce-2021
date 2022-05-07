@@ -25,7 +25,7 @@
         <div class="col-lg-4">
             <div class="order-summery">
                 <h4 class="br-section-label">Transaction Details</h4>
-                <p><span>Order Amount :</span> {{ $orderDetails->amount }} {{ $orderDetails->currency }}</p>
+                <p><span>Order Amount :</span> {{ number_format($orderDetails->amount, 2) }} {{ $orderDetails->currency }}</p>
                 <p><span>Transaction ID :</span> {{ $orderDetails->transaction_id }}</p>
 
                 <h4 class="change-order-status-title">Order Status <a href="{{ route('order.edit', $orderDetails->id) }}"><i class="fa fa-edit">
@@ -41,7 +41,7 @@
                     @elseif($orderDetails->status == 2 )
                         <span class="badge badge-success">Succesfull</span>
                     @elseif($orderDetails->status == 3 )
-                        <span class="badge badge-success">Cancelled</span>
+                        <span class="badge badge-danger">Cancelled</span>
                     @endif
                 </p>
             </div>
@@ -103,12 +103,26 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
+            <div class="message-box">
             <div class="alert alert-info text-center">
                 <h5>Customer Message</h5>
                 {{ !empty($orderDetails->message) ? $orderDetails->message : 'No Message given' }}
             </div>
         </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="message-box">
+            <div class="alert alert-warning text-center">
+                <h5>Admin Note</h5>
+                {{ !empty($orderDetails->admin_note) ? $orderDetails->admin_note : 'No Admin Note Given' }}
+            </div>
+        </div>
+        </div>
     </div>
+
+   
+</div>
 </div><!-- bd -->
     @endsection
